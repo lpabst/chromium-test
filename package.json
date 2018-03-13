@@ -6,9 +6,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
-    "browser-window": "^0.4.0",
-    "chromium": "^1.0.2",
-    "electron": "^1.8.3",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "massive": "^3.0.0",

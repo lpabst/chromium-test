@@ -29,31 +29,46 @@ var userController = require("./userController.js");
 
 
 // puppeteer
-async function run() {
+const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
+const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
+const passwordInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(2) > div > div._ev9xl input';
+const logInBtn = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > span > button';
+const profileLink = 'a[href="/'+config.username+'/"]';
+const followingBtn = '#react-root > section > main > article > header > section > ul > li:nth-child(3) > a';
+followingList = '._gs38e ul div';
+
+async function instagram() {
   const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const page = await browser.newPage();  
   
   await page.goto('https://www.instagram.com/');
   
-  await page.waitFor(200);
+  await page.waitForSelector(logInOption);
+  await page.click(logInOption);
+
+  await page.waitForSelector(emailInput);
+  await page.type(emailInput, config.email);
+  await page.type(passwordInput, config.password);
+  await page.click(logInBtn);
   
-  const input = await page.$('._ev9xl input');
-  await input.click();
-  await page.$eval('._ev9xl input', el => el.value = 'lorenpabst@gmail.com');
+  await page.waitForSelector(profileLink);
+  await page.click(profileLink);
+
+  await page.waitForSelector(followingBtn);
+  await page.click(followingBtn);
+
+  await page.waitForSelector(followingList);
   
-  await page.waitFor(200);
-  await page.screenshot({ path: 'screenshots/instagram.png' });
-  
-  console.log('done');
+  // take a screenshot to check progress
+  let r = Math.floor(Math.random()*1000000);
+  await page.screenshot({ path: `screenshots/instagram${r}.png` });
+
+  console.log('done ' + r);
   browser.close();
 
-  // await page.click('#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a');
 }
 
-run();
-
-
-//////////Endpoints for the front end
+instagram();
 
 
 
