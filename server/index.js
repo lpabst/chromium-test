@@ -34,14 +34,18 @@ var userController = require("./userController.js");
 
 let oneDay = 1000*60*60*24;
 
-app.post('/startScript', (req, res) => {
-  let {email, password, username} = req.body.info;
-  let profiles = req.body.profiles; //array
-  db.getPeopleFollowedByScript()
-  .then( response => {
-    peopleFollowedByScript = JSON.parse(response[0]);
-    instagram(email, password, username, profiles, peopleFollowedByScript);
-  })
+app.post('/api/launchIG', (req, res) => {
+  req.session.followScriptRunning = true;
+  console.log('hit', req.body, req.session)
+  let {email, password} = req.body;
+  // let profiles = req.body.profiles;
+  // db.getPeopleFollowedByScript()
+  // .then( response => {
+  //   peopleFollowedByScript = JSON.parse(response[0]);
+  //   instagram(email, password, username, profiles, peopleFollowedByScript);
+  // })
+  // instagramFollowScript(email, password, username, profiles, peopleFollowedByScript);
+  instagramFollowScript(email, password);
 })
 
 app.post('/stopScript', (req, res) => {
@@ -116,20 +120,26 @@ function setFutureDateUserHasPaidThrough(){
 }
 
 // puppeteer stuff
-const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
-const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
-const passwordInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(2) > div > div._ev9xl input';
-const logInBtn = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > span > button';
-const profileLink = 'a[href="/'+config.username+'/"]';
-const followingBtn = '#react-root > section > main > article > header > section > ul > li:nth-child(3) > a';
-const followingList = '._gs38e ul div';
 
-const followersButton = '#react-root > section > main > article > header > section > ul > li:nth-child(2) > a';
-const followersListReady = 'body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(1) > div > div._mtnzs > span > button';
-const followersList = '._p4iax > li:nth-child(0) >';
+async function instagramFollowScript(email, password, username, profiles, peopleFollowedByScript) {
 
-async function instagram(email, password, username, profiles, peopleFollowedByScript) {
+  const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
+  const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
+  const passwordInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(2) > div > div._ev9xl input';
+  const logInBtn = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > span > button';
+  const profileLink = 'a[href="/'+config.username+'/"]';
+  const followingBtn = '#react-root > section > main > article > header > section > ul > li:nth-child(3) > a';
+  const followingList = '._gs38e ul div';
+  
+  const followersButton = '#react-root > section > main > article > header > section > ul > li:nth-child(2) > a';
+  const followersListReady = 'body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(1) > div > div._mtnzs > span > button';
+  const followersList = '._p4iax > li:nth-child(0) >';
+
+
+
   let peopleFollowed = 0;
+
+
 
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();  
@@ -159,7 +169,7 @@ async function instagram(email, password, username, profiles, peopleFollowedBySc
 
     await page.waitFor(6000)
   
-    await page.click(indexToFollow);
+    // await page.click(indexToFollow);
   }
 
 
@@ -185,7 +195,7 @@ async function instagram(email, password, username, profiles, peopleFollowedBySc
 }
 
 // instagram(config.email, config.password, config.username);
-instagram(config.email2, config.password2, config.username2);
+// instagram(config.email2, config.password2, config.username2);
 
 
 
