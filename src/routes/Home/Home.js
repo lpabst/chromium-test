@@ -5,6 +5,7 @@ import './Home.css';
 import MainHeader from './../../components/MainHeader/MainHeader.js';
 import LandingMessage from './../../components/LandingMessage/LandingMessage.js';
 import LandingMessageFooter from './../../components/LandingMessage/LandingMessageFooter.js';
+import PageNameHeader from '../../components/PageNameHeader/PageNameHeader.js';
 
 class Home extends Component {
   constructor(props) {
@@ -26,6 +27,11 @@ class Home extends Component {
     return (
       <div className="home_wrapper">
         < MainHeader />
+        < PageNameHeader>
+          {() => (
+            <h1>Home</h1>
+          )}
+        </ PageNameHeader >
         < LandingMessage />
         < LandingMessageFooter />
         <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
