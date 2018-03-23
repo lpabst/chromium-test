@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Home.css';
 
-
+import MainHeader from './../../components/MainHeader/MainHeader.js';
 
 class Home extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class Home extends Component {
     console.log(this.state);
     return (
       <div className="home_wrapper">
+        < MainHeader />
         <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
         <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
         <button onClick={this.launchIG}> Launch IG </button>
