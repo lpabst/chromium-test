@@ -88,7 +88,7 @@ class MainHeader extends Component {
     let username = this.props.loggedIn ? this.props.username :  "Login/Join"
     return (
       <h1 
-        style={{color:"white", paddingRight:'20px', fontSize:'18px'}}
+        style={{color:"#222", paddingRight:'20px', fontSize:'18px'}}
         onClick={() => this.openPopover()}
         ref={(u) => { this.headerLoginButton = u }}
       >
@@ -104,32 +104,32 @@ class MainHeader extends Component {
   render() {
     return (
       <div className="mainHeader_wrapper">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{maxWidth:'1320px', margin:'0 auto'}}>
+        <nav className="navbar navbar-expand-lg navbar-light" style={{maxWidth:'1320px', margin:'0 auto'}}>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a style={{fontSize:"50px"}} className="navbar-brand" href="#">FOLLOW</a>
+          <a style={{fontSize:"55px", fontWeight:"bolder"}} className="navbar-brand" href="#">FOLLOW</a>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
               <li className={`nav-item ${this.state.navActive[0]}`}>
-                <a onClick={() => this.updateStyle(0)} style={{fontSize:"18px"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></a>
+                <a onClick={() => this.updateStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></a>
               </li>
               <li className={`nav-item ${this.state.navActive[1]}`}>
-                <a onClick={() => this.updateStyle(1)} style={{fontSize:"18px"}} className="nav-link moveFast" href="#">Link</a>
+                <a onClick={() => this.updateStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Link</a>
               </li>
               <li className={`nav-item ${this.state.navActive[2]}`}>
-                <a onClick={() => this.updateStyle(2)} style={{fontSize:"18px"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
               </li>
               <li className={`nav-item ${this.state.navActive[3]}`}>
-                <a onClick={() => this.updateStyle(3)} style={{fontSize:"18px"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
               </li>
               <li className={`nav-item ${this.state.navActive[4]}`}>
-                <a onClick={() => this.updateStyle(4)} style={{fontSize:"18px"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
               </li>
             </ul>
             {this.showUsernameOrLogin()}
-            <div style={{ width:'2px', height:'45px', background:'white'}}></div>
+            <div style={{ width:'2px', height:'45px', background:'#666'}}></div>
             <form className="form-inline my-2 my-lg-0" style={{paddingRight:'10px', paddingLeft:'20px'}}>
               <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{height:'25px'}}/>
               <button className="btn btn-outline-info my-2 my-sm-0" type="submit" style={{ padding:'0px 10px'}}>Search</button>
