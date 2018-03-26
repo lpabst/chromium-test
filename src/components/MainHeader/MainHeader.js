@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // import Popover from './../Popover/Popover.js'
 // import GlobalState from './../../GlobalState.js'
@@ -113,19 +114,19 @@ class MainHeader extends Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
               <li className={`nav-item ${this.state.navActive[0]}`}>
-                <a onClick={() => this.updateStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></a>
+                <Link to="/" onClick={() => this.updateStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></Link>
               </li>
               <li className={`nav-item ${this.state.navActive[1]}`}>
-                <a onClick={() => this.updateStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Link</a>
+                <a onClick={() => this.updateStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Discover</a>
               </li>
               <li className={`nav-item ${this.state.navActive[2]}`}>
-                <a onClick={() => this.updateStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">FAQ</a>
               </li>
               <li className={`nav-item ${this.state.navActive[3]}`}>
-                <a onClick={() => this.updateStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Support</a>
               </li>
               <li className={`nav-item ${this.state.navActive[4]}`}>
-                <a onClick={() => this.updateStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Disabled</a>
+                <a onClick={() => this.updateStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">About Us</a>
               </li>
             </ul>
             {this.showUsernameOrLogin()}
