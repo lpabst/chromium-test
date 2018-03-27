@@ -7,6 +7,8 @@ import LandingMessage from './../../components/LandingMessage/LandingMessage.js'
 import LandingMessageFooter from './../../components/LandingMessage/LandingMessageFooter.js';
 import PageNameHeader from '../../components/PageNameHeader/PageNameHeader.js';
 import PictureWithMessage from '../../components/PictureWithMessage/PictureWithMessage.js';
+import SocialLinks from '../../components/SocialLinks/SocialLinks.js';
+import MainFooter from '../../components/MainFooter/MainFooter.js';
 
 class Home extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class Home extends Component {
               <div className="picture-with-message_content-wrapper">
                 <div className="picture-with-message_text-left-wrapper">
                   <h2 style={{color:'white', fontSize:'4em', fontWeight:'Bolder'}}>Spend More Time</h2>
-                  <h2 style={{color:'white', fontSize:'4em', fontWeight:'Bolder'}}>Doing THIS.</h2>
+                  <h2 style={{color:'white', fontSize:'4em', fontWeight:'Bolder'}}>On TRAVELING.</h2>
                   <p style={{paddingLeft:'5px'}} className="picture-with-message_get-started">Get Started</p>
                 </div>
               </div>
@@ -56,7 +58,7 @@ class Home extends Component {
         </PictureWithMessage>
         < PageNameHeader>
           {() => (
-            <h1>FIND MORE CREATIVIY</h1>
+            <h1 style={{position:'absolute', right:'0'}}>FIND MORE CREATIVIY</h1>
           )}
         </ PageNameHeader >
         <PictureWithMessage>
@@ -92,6 +94,8 @@ class Home extends Component {
             </div>
           )}
         </PictureWithMessage>
+        <SocialLinks />
+        < MainFooter />
         <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
         <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
         <button onClick={this.launchIG}> Launch IG </button>

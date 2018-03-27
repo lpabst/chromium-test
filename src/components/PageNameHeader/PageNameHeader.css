@@ -4,6 +4,7 @@
   background: #333;
 }
 .page-name-header_wrapper div{
+  position: relative;
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
@@ -12,6 +13,7 @@
   font-size: 30px;
   line-height: 60px;
   letter-spacing: 4px;
+  /* background:orange; */
 }
 .page-name-header_wrapper h1{
   width: fit-content;
