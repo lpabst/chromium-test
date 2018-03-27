@@ -10,8 +10,6 @@ class PictureWithMessage extends Component {
   }
 
   render() {
-    console.log(this.props)
-    const test = 'hello'
     return (
       <div className='picture-with-message_wrapper'>
         <div>
