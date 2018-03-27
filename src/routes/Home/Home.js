@@ -24,7 +24,7 @@ class Home extends Component {
   launchIG = () => {
     axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput})
   }
-
+  
   render() {
     console.log(this.state);
     return (
@@ -35,6 +35,9 @@ class Home extends Component {
             <h1>Home</h1>
           )}
         </ PageNameHeader >
+          <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
+          <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
+          <button onClick={this.launchIG}> Launch IG </button>
         < LandingMessage />
         {/* < LandingMessageFooter /> */}
         < PageNameHeader>
@@ -96,9 +99,6 @@ class Home extends Component {
         </PictureWithMessage>
         <SocialLinks />
         < MainFooter />
-        <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
-        <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
-        <button onClick={this.launchIG}> Launch IG </button>
       </div>
     );
   }
