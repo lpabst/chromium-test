@@ -3,3 +3,10 @@
   /* padding: 0 200px; */
   width: 100%;
 }
+
+.main-header_logo{
+  width: 160px;
+  height: 70px;
+  background: url('./../../media/FOLLOW.png')center no-repeat;
+  background-size: contain;
+}

@@ -109,7 +109,7 @@ class MainHeader extends Component {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a style={{fontSize:"55px", fontWeight:"bolder"}} className="navbar-brand" href="#">FOLLOW</a>
+          <a className="navbar-brand main-header_logo" href="#"></a>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
