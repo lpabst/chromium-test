@@ -1,0 +1,19 @@
+.login-popover_wrapper{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0,0,0,.5);
+}
+
+#login-popover_content-wrapper{
+  position: absolute;
+  width: 350px;
+  height: 500px;
+  left: calc(50% - 175px);
+  top: 200px;
+  background: white;
+  border-radius: 5%;
+}

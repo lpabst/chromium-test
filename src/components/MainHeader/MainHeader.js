@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Popover from './../Popover/Popover.js'
-// import GlobalState from './../../GlobalState.js'
-
-// import './../../App.css';
+import LoginPopover from './../Popovers/LoginPopover.js';
+import LogoutPopover from './../Popovers/LogoutPopover.js';
 
 import './MainHeader.css';
 
@@ -21,13 +19,15 @@ class MainHeader extends Component {
         ''
       ],
       loggedIn: false,
-      showLoginPopover: false,
+      username: 'test',
+      showLoginPopover: true,
+      showLogoutPopover:false,
       usernameInput: '',
     }
 
   }
 
-  updateStyle = (tagIndex) => {
+  updateActiveTabStyle = (tagIndex) => {
     let navActive = [...this.state.navActive];
     for(let i=0;i<navActive.length;i++){
       navActive[i] = '';
@@ -38,56 +38,33 @@ class MainHeader extends Component {
     });
   };
 
-  openPopover = () => {
-    console.log("What I need", this.headerLoginButton.getBoundingClientRect())
+  openLoginPopover = () => {
     if(!this.state.showLoginPopover){
       this.setState({showLoginPopover: true})
     }
   }
 
-  closePopover = () => {
+  closeLoginPopover = () => {
     this.setState({showLoginPopover: false})
   }
 
-  toggleLoginPopover = () => {
-    return (
-      <div onBlur={this.closePopover}>
-        {this.state.showLoginPopover &&
-          <Popover 
-            width={'200px'} 
-            height={'300px'} 
-            closePopover={this.closePopover} 
-            usernameInput={this.state.usernameInput}
-            parent={this.headerLoginButton.getBoundingClientRect()}
-          >
-            {({ width, height, right, bottom, closePopover, usernameInput, }) => (
-              <div>
-                {this.state.loggedIn &&
-                  <div>
-                    <div>Hello {this.state.username}</div>
-                    <div onClick={() => { closePopover(); }}>Log Out</div>
-                  </div>
-                }
-                {!this.state.loggedIn &&
-                  <div>
-                    <input onChange={(e) => this.setState({usernameInput: e.target.value})}/>
-                    {/* <div onClick={() => { globalState.login({ username:usernameInput }); closePopover(); }}>Login</div> */}
-                  </div>
-                }
-              </div>
-            )}
-          </Popover>
-        }
-      </div>
-    )
+  openLogoutPopover = () => {
+    if(!this.state.showLoginPopover){
+      this.setState({showLogoutPopover: true})
+    }
   }
+
+  closeLogoutPopover = () => {
+    this.setState({showLogoutPopover: false})
+  }
+
   
   showUsernameOrLogin = () => {
-    let username = this.props.loggedIn ? this.props.username :  "Login/Join"
+    let username = this.state.loggedIn ? this.state.username :  "Login/Join"
     return (
       <h1 
         style={{paddingRight:'20px', fontSize:'18px'}}
-        onClick={() => this.openPopover()}
+        onClick={ this.state.loggedIn ? () => this.openLogoutPopover() : () => this.openLoginPopover()}
         ref={(u) => { this.headerLoginButton = u }}
         className="main-header_login-username"
       >
@@ -95,7 +72,6 @@ class MainHeader extends Component {
         &nbsp;
         &nbsp;        
         {username}
-        {this.toggleLoginPopover()}
       </h1>
     )
   }
@@ -112,19 +88,19 @@ class MainHeader extends Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
               <li className={`nav-item ${this.state.navActive[0]}`}>
-                <Link to="/" onClick={() => this.updateStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></Link>
+                <Link to="/" onClick={() => this.updateActiveTabStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></Link>
               </li>
               <li className={`nav-item ${this.state.navActive[1]}`}>
-                <a onClick={() => this.updateStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Discover</a>
+                <a onClick={() => this.updateActiveTabStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Discover</a>
               </li>
               <li className={`nav-item ${this.state.navActive[2]}`}>
-                <a onClick={() => this.updateStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">FAQ</a>
+                <a onClick={() => this.updateActiveTabStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">FAQ</a>
               </li>
               <li className={`nav-item ${this.state.navActive[3]}`}>
-                <a onClick={() => this.updateStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Support</a>
+                <a onClick={() => this.updateActiveTabStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Support</a>
               </li>
               <li className={`nav-item ${this.state.navActive[4]}`}>
-                <a onClick={() => this.updateStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">About Us</a>
+                <a onClick={() => this.updateActiveTabStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">About Us</a>
               </li>
             </ul>
             {this.showUsernameOrLogin()}
@@ -135,6 +111,12 @@ class MainHeader extends Component {
             </form>
           </div>
         </nav>
+        { this.state.showLoginPopover && 
+          < LoginPopover closeLoginPopover={this.closeLoginPopover} />
+        }
+        { this.state.showLogoutPopover && 
+          < LogoutPopover closeLogoutPopover={this.closeLogoutPopover} />
+        }
       </div>
     );
   }
