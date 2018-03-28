@@ -6,7 +6,15 @@
 
 .main-header_logo{
   width: 160px;
-  height: 70px;
-  background: url('./../../media/FOLLOW.png')center no-repeat;
+  height: 60px;
+  background: url('./../../media/main-logo-orange.png')center no-repeat;
   background-size: contain;
+}
+
+.main-header_login-username {
+  color: #555;
+}
+.main-header_login-username:hover {
+  color: black;
+  cursor: pointer;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import Popover from './../Popover/Popover.js'
+import Popover from './../Popover/Popover.js'
 // import GlobalState from './../../GlobalState.js'
 
 // import './../../App.css';
@@ -20,13 +20,10 @@ class MainHeader extends Component {
         '',
         ''
       ],
+      loggedIn: false,
       showLoginPopover: false,
       usernameInput: '',
     }
-
-  }
-
-  handleUsernameInput = () => {
 
   }
 
@@ -42,6 +39,7 @@ class MainHeader extends Component {
   };
 
   openPopover = () => {
+    console.log("What I need", this.headerLoginButton.getBoundingClientRect())
     if(!this.state.showLoginPopover){
       this.setState({showLoginPopover: true})
     }
@@ -51,53 +49,53 @@ class MainHeader extends Component {
     this.setState({showLoginPopover: false})
   }
 
-  // toggleLoginPopover = () => {
-  //   return (
-  //     <div onBlur={this.closePopover}>
-  //       {this.state.showLoginPopover &&
-  //         <Popover 
-  //           width={'200px'} 
-  //           height={'300px'} 
-  //           closePopover={this.closePopover} 
-  //           globalState={this.props.globalState} 
-  //           usernameInput={this.state.usernameInput}
-  //           parentHeight={this.headerLoginButton.getBoundingClientRect().height || 10}
-  //         >
-  //           {({ width, height, right, bottom, closePopover, globalState, usernameInput, }) => (
-  //             <div>
-  //               {globalState.loggedIn &&
-  //                 <div>
-  //                   <div>Hello {globalState.username}</div>
-  //                   <div onClick={() => { globalState.logOut(); closePopover(); }}>Log Out</div>
-  //                 </div>
-  //               }
-  //               {!globalState.loggedIn &&
-  //                 <div>
-  //                   <input onChange={(e) => this.setState({usernameInput: e.target.value})}/>
-  //                   <div onClick={() => { globalState.login({ username:usernameInput }); closePopover(); }}>Login</div>
-  //                 </div>
-  //               }
-  //             </div>
-  //           )}
-  //         </Popover>
-  //       }
-  //     </div>
-  //   )
-  // }
+  toggleLoginPopover = () => {
+    return (
+      <div onBlur={this.closePopover}>
+        {this.state.showLoginPopover &&
+          <Popover 
+            width={'200px'} 
+            height={'300px'} 
+            closePopover={this.closePopover} 
+            usernameInput={this.state.usernameInput}
+            parent={this.headerLoginButton.getBoundingClientRect()}
+          >
+            {({ width, height, right, bottom, closePopover, usernameInput, }) => (
+              <div>
+                {this.state.loggedIn &&
+                  <div>
+                    <div>Hello {this.state.username}</div>
+                    <div onClick={() => { closePopover(); }}>Log Out</div>
+                  </div>
+                }
+                {!this.state.loggedIn &&
+                  <div>
+                    <input onChange={(e) => this.setState({usernameInput: e.target.value})}/>
+                    {/* <div onClick={() => { globalState.login({ username:usernameInput }); closePopover(); }}>Login</div> */}
+                  </div>
+                }
+              </div>
+            )}
+          </Popover>
+        }
+      </div>
+    )
+  }
   
   showUsernameOrLogin = () => {
     let username = this.props.loggedIn ? this.props.username :  "Login/Join"
     return (
       <h1 
-        style={{color:"#222", paddingRight:'20px', fontSize:'18px'}}
+        style={{paddingRight:'20px', fontSize:'18px'}}
         onClick={() => this.openPopover()}
         ref={(u) => { this.headerLoginButton = u }}
+        className="main-header_login-username"
       >
         {String.fromCharCode(9663)}
         &nbsp;
         &nbsp;        
         {username}
-        {/* {this.toggleLoginPopover()} */}
+        {this.toggleLoginPopover()}
       </h1>
     )
   }
