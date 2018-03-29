@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import {connect} from 'react-redux';
+import {logIn} from './../../ducks/reducer.js';
+
 import LoginPopover from './../Popovers/LoginPopover.js';
 import LogoutPopover from './../Popovers/LogoutPopover.js';
 import SignUpPopover from './../Popovers/SignUpPopover.js';
@@ -80,7 +83,8 @@ class MainHeader extends Component {
 
   
   showUsernameOrLogin = () => {
-    let username = this.state.loggedIn ? this.state.username :  "Log In/Join"
+    console.log(this.props);
+    let username = this.props.loggedIn ? this.props.username :  "Log In/Join"
     if(username.length > 20){
       username = username.split('').slice(0, 18).join('') + '...';
     }
@@ -153,4 +157,14 @@ class MainHeader extends Component {
   }
 }
 
-export default MainHeader;
+function mapStateToProps(state){
+  return {
+      loading: state.loading,
+      loggedIn: state.loggedIn,
+      username: state.username,
+  }
+}
+
+export default connect(mapStateToProps, {
+  logIn,
+})(MainHeader);
