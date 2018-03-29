@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import LoginPopover from './../Popovers/LoginPopover.js';
 import LogoutPopover from './../Popovers/LogoutPopover.js';
+import SignUpPopover from './../Popovers/SignUpPopover.js';
 
 import './MainHeader.css';
 
@@ -20,8 +21,9 @@ class MainHeader extends Component {
       ],
       loggedIn: false,
       username: 'test',
-      showLoginPopover: true,
+      showLoginPopover: false,
       showLogoutPopover:false,
+      showSignUpPopover:true,
       usernameInput: '',
     }
 
@@ -40,27 +42,32 @@ class MainHeader extends Component {
 
   openLoginPopover = () => {
     if(!this.state.showLoginPopover){
-      this.setState({showLoginPopover: true})
+      this.setState({showLoginPopover: true, showLogoutPopover:false, showSignUpPopover:false})
     }
   }
-
   closeLoginPopover = () => {
     this.setState({showLoginPopover: false})
   }
-
   openLogoutPopover = () => {
-    if(!this.state.showLoginPopover){
+    if(!this.state.showLogoutPopover){
       this.setState({showLogoutPopover: true})
     }
   }
-
   closeLogoutPopover = () => {
     this.setState({showLogoutPopover: false})
+  }
+  openSignUpPopover = () => {
+    if(!this.state.showSignUpPopover){
+      this.setState({showSignUpPopover: true, showLoginPopover: false, showLogoutPopover:false})
+    }
+  }
+  closeSignUpPopover = () => {
+    this.setState({showSignUpPopover: false})
   }
 
   
   showUsernameOrLogin = () => {
-    let username = this.state.loggedIn ? this.state.username :  "Login/Join"
+    let username = this.state.loggedIn ? this.state.username :  "Log In/Join"
     return (
       <h1 
         style={{paddingRight:'20px', fontSize:'18px'}}
@@ -112,10 +119,13 @@ class MainHeader extends Component {
           </div>
         </nav>
         { this.state.showLoginPopover && 
-          < LoginPopover closeLoginPopover={this.closeLoginPopover} />
+          < LoginPopover openSignUpPopover={this.openSignUpPopover} closeLoginPopover={this.closeLoginPopover} />
         }
         { this.state.showLogoutPopover && 
           < LogoutPopover closeLogoutPopover={this.closeLogoutPopover} />
+        }
+        { this.state.showSignUpPopover && 
+          < SignUpPopover openLoginPopover={this.openLoginPopover} closeSignUpPopover={this.closeSignUpPopover} />
         }
       </div>
     );
