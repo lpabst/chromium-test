@@ -1,18 +1,29 @@
 var app = require('./index.js');
-var db = app.get('db');
 
 module.exports = {
-  getUserInfo: function(req, res){
-      console.log("get user info running");
-    db.find_by_id([req.session.passport.user.google_id],function(err,user){
-      if (err){
-        res.status(400).json(err);
-      }else if (user[0]){
-        res.status(200).json(user[0]);
-      }else if (user){
-        res.status(200).json(user);
-      }
-    });
+  logIn: function(req, res){
+    // console.log('hit')
+    const db = req.app.get('db');
+    db.logIn([req.body.email, req.body.password])
+    .then( response => {
+        if(response.length){
+          console.log(response);
+          req.session.isLoggedIn = true;
+          response[0].isLoggedIn=true;
+          req.session.user = response[0];
+        } else {
+          req.session.isLoggedIn = false
+          return res.status(200).send({
+            isLoggedIn: false, 
+            message: 'Invalid email or password.'
+          })
+        }
+        return res.status(200).json( response[0] )
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).send(err)
+    })        
   },
     
   findById: function(accessToken,refreshToken,profile, done){

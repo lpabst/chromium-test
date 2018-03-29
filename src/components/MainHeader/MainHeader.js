@@ -49,11 +49,13 @@ class MainHeader extends Component {
   };
 
   lookAtURLForNavStyle = () => {
-    if(window.location.pathname.split('/')[1].includes("discover")) {this.updateActiveTabStyle(1)}
-    if(window.location.pathname.split('/')[1].includes("faq")) {this.updateActiveTabStyle(2)}
-    if(window.location.pathname.split('/')[1].includes("support")) {this.updateActiveTabStyle(3)}
-    if(window.location.pathname.split('/')[1].includes("about")) {this.updateActiveTabStyle(4)}
-    if(window.location.pathname.split('/')[1].includes("dashboard")) {this.updateActiveTabStyle(5)}
+    if(window.location.href.split('#/')[1]){
+      if(window.location.href.split('#/')[1].includes("discover")) {this.updateActiveTabStyle(1)} return;
+      if(window.location.href.split('#/')[1].includes("faq")) {this.updateActiveTabStyle(2)} return;
+      if(window.location.href.split('#/')[1].includes("support")) {this.updateActiveTabStyle(3)} return;
+      if(window.location.href.split('#/')[1].includes("about")) {this.updateActiveTabStyle(4)} return;
+      if(window.location.href.split('#/')[1].includes("dashboard")) {this.updateActiveTabStyle(5)} return;
+    }
   }
 
   openLoginPopover = () => {
@@ -83,7 +85,6 @@ class MainHeader extends Component {
 
   
   showUsernameOrLogin = () => {
-    console.log(this.props);
     let username = this.props.loggedIn ? this.props.username :  "Log In/Join"
     if(username.length > 20){
       username = username.split('').slice(0, 18).join('') + '...';
@@ -91,7 +92,7 @@ class MainHeader extends Component {
     return (
       <h1 
         style={{paddingRight:'20px', fontSize:'18px'}}
-        onClick={ this.state.loggedIn ? () => this.openLogoutPopover() : () => this.openLoginPopover()}
+        onClick={ this.props.loggedIn ? () => this.openLogoutPopover() : () => this.openLoginPopover()}
         ref={(u) => { this.headerLoginButton = u }}
         className="main-header_login-username"
       >
@@ -147,7 +148,7 @@ class MainHeader extends Component {
           < LoginPopover openSignUpPopover={this.openSignUpPopover} closeLoginPopover={this.closeLoginPopover} />
         }
         { this.state.showLogoutPopover && 
-          < LogoutPopover username={this.state.username} closeLogoutPopover={this.closeLogoutPopover} />
+          < LogoutPopover username={this.props.username} closeLogoutPopover={this.closeLogoutPopover} />
         }
         { this.state.showSignUpPopover && 
           < SignUpPopover openLoginPopover={this.openLoginPopover} closeSignUpPopover={this.closeSignUpPopover} />
