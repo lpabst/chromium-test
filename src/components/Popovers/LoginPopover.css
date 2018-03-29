@@ -42,3 +42,19 @@
   cursor: pointer;
   background: #bc2b2b;
 }
+#login-popover_forgot-password{
+  width: fit-content;
+  position: block;
+  margin: 0 auto;
+  color: rgb(40, 104, 215);
+}
+#login-popover_forgot-password:hover{
+  cursor: pointer;
+  color: rgb(4, 68, 179);
+}
+.login-popover_log-in-button{
+  background:#ef992f;
+}
+.login-popover_log-in-button:hover{
+  background:#df8517;
+}
