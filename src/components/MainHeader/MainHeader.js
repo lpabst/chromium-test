@@ -19,11 +19,11 @@ class MainHeader extends Component {
         '',
         ''
       ],
-      loggedIn: false,
-      username: 'test',
+      loggedIn: true,
+      username: 'Clayton Pabst 5678900',
       showLoginPopover: false,
       showLogoutPopover:false,
-      showSignUpPopover:true,
+      showSignUpPopover:false,
       usernameInput: '',
     }
 
@@ -68,6 +68,10 @@ class MainHeader extends Component {
   
   showUsernameOrLogin = () => {
     let username = this.state.loggedIn ? this.state.username :  "Log In/Join"
+    console.log(username)
+    if(username.length > 20){
+      username = username.split('').slice(0, 18).join('') + '...';
+    }
     return (
       <h1 
         style={{paddingRight:'20px', fontSize:'18px'}}
@@ -109,6 +113,11 @@ class MainHeader extends Component {
               <li className={`nav-item ${this.state.navActive[4]}`}>
                 <a onClick={() => this.updateActiveTabStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">About Us</a>
               </li>
+              { this.state.loggedIn &&
+                <li className={`nav-item ${this.state.navActive[5]}`}>
+                  <a onClick={() => this.updateActiveTabStyle(5)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Dashboard</a>
+                </li>
+              }
             </ul>
             {this.showUsernameOrLogin()}
             <div style={{ width:'2px', height:'45px', background:'#666'}}></div>
@@ -122,7 +131,7 @@ class MainHeader extends Component {
           < LoginPopover openSignUpPopover={this.openSignUpPopover} closeLoginPopover={this.closeLoginPopover} />
         }
         { this.state.showLogoutPopover && 
-          < LogoutPopover closeLogoutPopover={this.closeLogoutPopover} />
+          < LogoutPopover username={this.state.username} closeLogoutPopover={this.closeLogoutPopover} />
         }
         { this.state.showSignUpPopover && 
           < SignUpPopover openLoginPopover={this.openLoginPopover} closeSignUpPopover={this.closeSignUpPopover} />
