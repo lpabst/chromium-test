@@ -144,6 +144,7 @@ async function instagramFollowScript(email, password, username, profiles, people
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();  
 
+
   await page.waitFor(5000);
   
   await page.goto('https://www.instagram.com/');
