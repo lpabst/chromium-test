@@ -29,6 +29,8 @@ app.use(express.static(__dirname + './../build'))
 
 var userController = require("./userController.js");
 
+app.post('/api/logIn', userController.logIn);
+
 
 /*********************** Instagram stuff *********************************/
 

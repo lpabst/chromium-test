@@ -4,10 +4,14 @@ const LOG_IN = 'LOG_IN'
 const LOG_IN_PENDING = 'LOG_IN_PENDING'
 const LOG_IN_FULFILLED = 'LOG_IN_FULFILLED'
 
+const LOG_OUT = 'LOG_OUT'
+const LOG_OUT_PENDING = 'LOG_OUT_PENDING'
+const LOG_OUT_FULFILLED = 'LOG_OUT_FULFILLED'
+
 
 const initialState = {
   loading: false,
-  loggedIn: true,
+  loggedIn: false,
   username: 'From Redux',
 }
 
@@ -17,7 +21,7 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {loading: true})
     case LOG_IN_FULFILLED:
       console.log(action)
-      return Object.assign({}, state, {loading: false, })
+      return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:true})
     
     default:
       return state;
@@ -25,9 +29,16 @@ export default function reducer(state = initialState, action) {
 }
 
 
-export function logIn(){
+export function logIn(loginCredentials){
     return{
       type: LOG_IN,
-      payload: mainService.logIn()
+      payload: mainService.logIn(loginCredentials)
+    } 
+}
+
+export function logOut(){
+    return{
+      type: LOG_OUT,
+      payload: mainService.logOut()
     } 
 }

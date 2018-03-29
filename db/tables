@@ -1,0 +1,15 @@
+CREATE TABLE Users (
+    ID serial NOT NULL PRIMARY KEY,
+    Email varchar(255) not null,
+    username varchar(255) not null,
+    salt INTEGER Not Null,
+    password varchar(255) Not NUll,
+    paidthrough bigint,
+    followedbybasic text,
+    tounfollow text,
+    unfollowedbybasic text,
+    isadmin boolean not null,
+)
+
+INSERT INTO Users (Email, username, salt, password, paidthrough, followedbybasic, tounfollow, unfollowedbybasic, isadmin)
+values ('claytonpabst@gmail.com', 'Clayton Pabst', 1234567, 'Password1', 223372036854775807, '', '', '', true)
