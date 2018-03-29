@@ -7,3 +7,12 @@
   z-index: 999;
   background: rgba(0,0,0,.5);
 }
+
+.logout-popover_nav-button{
+  color: rgb(40, 104, 215);
+}
+
+.logout-popover_nav-button:hover{
+  cursor: pointer;
+  color: rgb(4, 68, 179);
+}

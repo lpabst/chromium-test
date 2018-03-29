@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import './Home.css';
+import './Discover.css';
 
 import MainHeader from './../../components/MainHeader/MainHeader.js';
 import LandingMessage from './../../components/LandingMessage/LandingMessage.js';
@@ -10,7 +9,7 @@ import PictureWithMessage from '../../components/PictureWithMessage/PictureWithM
 import SocialLinks from '../../components/SocialLinks/SocialLinks.js';
 import MainFooter from '../../components/MainFooter/MainFooter.js';
 
-class Home extends Component {
+class Discover extends Component {
   constructor(props) {
     super(props)
 
@@ -20,10 +19,6 @@ class Home extends Component {
     }
 
   }
-
-  launchIG = () => {
-    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput})
-  }
   
   render() {
     return (
@@ -31,14 +26,10 @@ class Home extends Component {
         < MainHeader />
         < PageNameHeader>
           {() => (
-            <h1>Home</h1>
+            <h1>Discover</h1>
           )}
         </ PageNameHeader >
-          <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
-          <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
-          <button onClick={this.launchIG}> Launch IG </button>
         < LandingMessage />
-        {/* < LandingMessageFooter /> */}
         < PageNameHeader>
           {() => (
             <h1>FIND MORE FREEDOM</h1>
@@ -103,4 +94,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Discover;

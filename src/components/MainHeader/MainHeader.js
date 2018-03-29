@@ -12,12 +12,13 @@ class MainHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      navActive:[
+      navActive: [
         'active',
         '',
         '',
         '',
-        ''
+        '',
+        '',
       ],
       loggedIn: true,
       username: 'Clayton Pabst 5678900',
@@ -27,6 +28,10 @@ class MainHeader extends Component {
       usernameInput: '',
     }
 
+  }
+
+  componentDidMount(){
+    this.lookAtURLForNavStyle()
   }
 
   updateActiveTabStyle = (tagIndex) => {
@@ -39,6 +44,14 @@ class MainHeader extends Component {
       navActive
     });
   };
+
+  lookAtURLForNavStyle = () => {
+    if(window.location.pathname.split('/')[1].includes("discover")) {this.updateActiveTabStyle(1)}
+    if(window.location.pathname.split('/')[1].includes("faq")) {this.updateActiveTabStyle(2)}
+    if(window.location.pathname.split('/')[1].includes("support")) {this.updateActiveTabStyle(3)}
+    if(window.location.pathname.split('/')[1].includes("about")) {this.updateActiveTabStyle(4)}
+    if(window.location.pathname.split('/')[1].includes("dashboard")) {this.updateActiveTabStyle(5)}
+  }
 
   openLoginPopover = () => {
     if(!this.state.showLoginPopover){
@@ -68,7 +81,6 @@ class MainHeader extends Component {
   
   showUsernameOrLogin = () => {
     let username = this.state.loggedIn ? this.state.username :  "Log In/Join"
-    console.log(username)
     if(username.length > 20){
       username = username.split('').slice(0, 18).join('') + '...';
     }
@@ -99,23 +111,23 @@ class MainHeader extends Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
               <li className={`nav-item ${this.state.navActive[0]}`}>
-                <Link to="/" onClick={() => this.updateActiveTabStyle(0)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Home <span className="sr-only">(current)</span></Link>
+                <Link to="/" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Home <span className="sr-only">(current)</span></Link>
               </li>
               <li className={`nav-item ${this.state.navActive[1]}`}>
-                <a onClick={() => this.updateActiveTabStyle(1)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Discover</a>
+                <Link to="/discover" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Discover</Link>
               </li>
               <li className={`nav-item ${this.state.navActive[2]}`}>
-                <a onClick={() => this.updateActiveTabStyle(2)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">FAQ</a>
+                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">FAQ</a>
               </li>
               <li className={`nav-item ${this.state.navActive[3]}`}>
-                <a onClick={() => this.updateActiveTabStyle(3)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Support</a>
+                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Support</a>
               </li>
               <li className={`nav-item ${this.state.navActive[4]}`}>
-                <a onClick={() => this.updateActiveTabStyle(4)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">About Us</a>
+                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">About Us</a>
               </li>
               { this.state.loggedIn &&
                 <li className={`nav-item ${this.state.navActive[5]}`}>
-                  <a onClick={() => this.updateActiveTabStyle(5)} style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast" href="#">Dashboard</a>
+                  <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Dashboard</a>
                 </li>
               }
             </ul>

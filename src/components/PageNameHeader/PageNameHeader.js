@@ -10,8 +10,6 @@ class PageNameHeader extends Component {
   }
 
   render() {
-    console.log(this.props)
-    const test = 'hello'
     return (
       <div className='page-name-header_wrapper'>
         <div>

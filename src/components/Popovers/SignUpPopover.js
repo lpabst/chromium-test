@@ -26,17 +26,17 @@ export default function SignUpPopover(props) {
             <input style={{marginTop:'3px', padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} type="password" className="form-control" id="exampleInputPassword1" placeholder="Re-Enter Password" />
           </div>
           <button 
-            style={{margin:'0 auto', display:'block', background:'#ef992f', width:'90%', fontWeight:'bold', padding:'12px'}} 
+            style={{margin:'0 auto -7px auto', display:'block', width:'90%', fontWeight:'bold', padding:'12px'}} 
             type="submit" 
-            className="btn"
+            className="btn login-popover_log-in-button"
             onClick={(e) => {e.stopPropagation()}}
           >
             Sign Up
           </button>
           <p style={{textAlign:'center', padding:'30px', color:'#777', fontWeight:'bold'}}>_____________ or _____________</p>
           <button 
-            style={{margin:'0 auto 20px auto', display:'block', background:'#ef992f', width:'90%', fontWeight:'bold', padding:'12px'}} 
-            className="btn"
+            style={{margin:'0 auto 20px auto', display:'block', width:'90%', fontWeight:'bold', padding:'12px'}} 
+            className="btn login-popover_log-in-button"
             onClick={(e) => {e.stopPropagation(); props.openLoginPopover();}}
           >
             Log In
