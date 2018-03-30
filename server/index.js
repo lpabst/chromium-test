@@ -29,6 +29,8 @@ app.use(express.static(__dirname + './../build'))
 
 var userController = require("./userController.js");
 
+app.get('/api/isLoggedIn', userController.isLoggedIn);
+app.get('/api/logOut', userController.logOut);
 app.post('/api/logIn', userController.logIn);
 
 

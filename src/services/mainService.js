@@ -5,7 +5,12 @@ export const logIn = function(loginCredentials) {
     .then(res => res.data)
 }
 
+export const isLoggedIn = function() {
+    return axios.get('/api/isLoggedIn/')
+    .then(res => res.data)
+}
+
 export const logOut = function() {
-    return axios.post('/api/logOut/')
+    return axios.get('/api/logOut/')
     .then(res => res.data)
 }
