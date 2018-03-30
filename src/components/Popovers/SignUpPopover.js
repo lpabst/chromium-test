@@ -12,7 +12,7 @@ export default function SignUpPopover(props) {
           <div style={{display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
             {/* <label style={{margin:'5px'}} for="exampleInputEmail1">Username:</label> */}
             <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">Choose a username.</small>
-            <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" />
+            <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} className="form-control" placeholder="Username" />
           </div>
           <div style={{margin:'0 auto', display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
             {/* <label style={{margin:'5px'}} for="exampleInputEmail1">E-mail address:</label> */}
