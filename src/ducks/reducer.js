@@ -16,12 +16,17 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action) {
+  console.log(action)
   switch (action.type) {
     case LOG_IN_PENDING:
       return Object.assign({}, state, {loading: true})
     case LOG_IN_FULFILLED:
-      console.log(action)
-      return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:true})
+      if( action.payload.loggedIn ){
+        return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:true})
+      } else {
+        window.alert('Invalid E-Mail or Password.')
+        return Object.assign({}, state, {loading: false, username:'', loggedIn:false})
+      }
     
     default:
       return state;
