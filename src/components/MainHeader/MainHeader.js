@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {logIn} from './../../ducks/reducer.js';
+import {isLoggedIn, logOut} from './../../ducks/reducer.js';
 
 import LoginPopover from './../Popovers/LoginPopover.js';
 import LogoutPopover from './../Popovers/LogoutPopover.js';
 import SignUpPopover from './../Popovers/SignUpPopover.js';
+import LoadingPopover from './../Popovers/LoadingPopover.js';
 
 import './MainHeader.css';
 
@@ -23,16 +25,17 @@ class MainHeader extends Component {
         '',
         '',
       ],
-      loggedIn: true,
-      username: 'Clayton Pabst 5678900',
       showLoginPopover: false,
       showLogoutPopover:false,
       showSignUpPopover:false,
-      usernameInput: '',
     }
 
   }
 
+  componentWillMount(){
+    this.props.isLoggedIn()
+  }
+  
   componentDidMount(){
     this.lookAtURLForNavStyle()
   }
@@ -105,6 +108,7 @@ class MainHeader extends Component {
   }
 
   render() {
+    // console.log(this)
     return (
       <div className="mainHeader_wrapper">
         <nav className="navbar navbar-expand-lg navbar-light" style={{maxWidth:'1320px', margin:'0 auto'}}>
@@ -130,7 +134,7 @@ class MainHeader extends Component {
               <li className={`nav-item ${this.state.navActive[4]}`}>
                 <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">About Us</a>
               </li>
-              { this.state.loggedIn &&
+              { this.props.loggedIn &&
                 <li className={`nav-item ${this.state.navActive[5]}`}>
                   <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Dashboard</a>
                 </li>
@@ -148,10 +152,13 @@ class MainHeader extends Component {
           < LoginPopover openSignUpPopover={this.openSignUpPopover} closeLoginPopover={this.closeLoginPopover} />
         }
         { this.state.showLogoutPopover && 
-          < LogoutPopover username={this.props.username} closeLogoutPopover={this.closeLogoutPopover} />
+          < LogoutPopover logOut={this.props.logOut} username={this.props.username} closeLogoutPopover={this.closeLogoutPopover} />
         }
         { this.state.showSignUpPopover && 
           < SignUpPopover openLoginPopover={this.openLoginPopover} closeSignUpPopover={this.closeSignUpPopover} />
+        }
+        { this.props.loading && 
+          < LoadingPopover />
         }
       </div>
     );
@@ -167,5 +174,6 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {
-  logIn,
+  isLoggedIn,
+  logOut,
 })(MainHeader);

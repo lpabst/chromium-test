@@ -1,21 +1,21 @@
 var app = require('./index.js');
 
 module.exports = {
+
   logIn: function(req, res){
-    // console.log('hit')
     const db = req.app.get('db');
     db.logIn([req.body.email, req.body.password])
     .then( response => {
       console.log(response);
       if(response.length){
-        req.session.LoggedIn = true;
-        response[0].LoggedIn=true;
+        req.session.loggedIn = true;
+        response[0].loggedIn = true;
         response[0].message = 'Login Successful.'
         req.session.user = response[0];
       } else {
-        req.session.LoggedIn = false
+        req.session.loggedIn = false
         return res.status(200).send({
-          LoggedIn: false,
+          loggedIn: false,
           username: '',
           message: 'Invalid email or password.'
         })
@@ -27,24 +27,18 @@ module.exports = {
         res.status(500).send(err)
     })        
   },
-    
-  findById: function(accessToken,refreshToken,profile, done){
-      db.find_by_id([profile.id],function(err,user){
 
-          if(!user[0]){//if there isnt one, create!!
-            console.log('CREATING USER');
-            console.log('profile');
-            db.create_google_user([profile.id,profile.name.familyName, profile.name.givenName, accessToken],function(err,user){
-              console.log('USER CREATED',user);
-              return done(err,user);//goes to serialize user
-            })
-          }else{//if we find a user, return it
-            console.log('FOUND USER', user)
-            return done(err,user);
-          }
+  isLoggedIn: function(req, res){
+    if (req.session.loggedIn){
+      return res.status(200).send(req.session.user);
+    }else{
+      return res.status(200).send({loggedIn: false})
+    }
+  },
 
-      })
-
-  }
+  logOut: function(req, res){
+    req.session.loggedIn = false;
+    return res.status(200).send({message:'User Logged Out.'})
+  },
   
 };
