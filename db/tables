@@ -2,7 +2,6 @@ CREATE TABLE Users (
     ID serial NOT NULL PRIMARY KEY,
     Email varchar(255) not null UNIQUE,
     username varchar(255) not null,
-    salt varchar(63) Not Null,
     password varchar(255) Not NUll,
     paid_through bigint,
     followed_by_basic text,
@@ -13,7 +12,7 @@ CREATE TABLE Users (
     unfollow_basic_running boolean
 )
 
-INSERT INTO Users (Email, username, salt, password, paid_through, followed_by_basic, to_unfollow, unfollowed_by_basic, is_admin, follow_basic_running, unfollow_basic_running)
-values ('claytonpabst@gmail.com', 'Clayton Pabst', 'fdf1234567', 'Password1', 223372036854775807, '', '', '', true, false, false)
+INSERT INTO Users (Email, username, password, paid_through, followed_by_basic, to_unfollow, unfollowed_by_basic, is_admin, follow_basic_running, unfollow_basic_running)
+values ('claytonpabst@gmail.com', 'Clayton Pabst', 'Password1', 223372036854775807, '', '', '', true, false, false)
 
 -- ALTER TABLE users ADD COLUMN IF NOT EXISTS unfollow_basic_running BOOLEAN;
