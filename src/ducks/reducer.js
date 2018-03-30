@@ -14,6 +14,11 @@ const LOG_OUT_PENDING = 'LOG_OUT_PENDING'
 const LOG_OUT_REJECTED = 'LOG_OUT_REJECTED'
 const LOG_OUT_FULFILLED = 'LOG_OUT_FULFILLED'
 
+const CREATE_USER = 'CREATE_USER'
+const CREATE_USER_PENDING = 'CREATE_USER_PENDING'
+const CREATE_USER_REJECTED = 'CREATE_USER_REJECTED'
+const CREATE_USER_FULFILLED = 'CREATE_USER_FULFILLED'
+
 
 const initialState = {
   loading: false,
@@ -37,16 +42,26 @@ export default function reducer(state = initialState, action) {
       }
     case IS_LOGGED_IN_FULFILLED:
       if( action.payload.loggedIn ){
-        return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:true})
+        return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:action.payload.loggedIn})
       } else {
-        return state;
+        return Object.assign({}, state, {loading: false})
       }
     case LOG_OUT_PENDING:
       return Object.assign({}, state, {loading: true})
     case LOG_OUT_REJECTED:
       return Object.assign({}, state, {loading: false})
-  case LOG_OUT_FULFILLED:
+    case LOG_OUT_FULFILLED:
       return Object.assign({}, state, {loading: false, username:'', loggedIn:false})
+    case CREATE_USER_PENDING:
+      return Object.assign({}, state, {loading: true})
+    case CREATE_USER_REJECTED:
+      return Object.assign({}, state, {loading: false})
+    case CREATE_USER_FULFILLED:
+      if(action.payload.loggedIn){
+        return Object.assign({}, state, {loading: false, username:action.payload.username, loggedIn:action.payload.loggedIn})
+      } else {
+        return Object.assign({}, state, {loading: false})
+      }
     
     default:
       return state;
@@ -75,5 +90,12 @@ export function logOut(){
     return{
       type: LOG_OUT,
       payload: mainService.logOut()
+    } 
+}
+
+export function createUser(data){
+    return{
+      type: CREATE_USER,
+      payload: mainService.createUser(data)
     } 
 }

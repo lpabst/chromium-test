@@ -14,3 +14,7 @@ export const logOut = function() {
     return axios.get('/api/logOut/')
     .then(res => res.data)
 }
+export const createUser = function(data) {
+    return axios.post('/api/createUser/', data)
+    .then(res => res.data)
+}

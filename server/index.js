@@ -32,6 +32,7 @@ var userController = require("./userController.js");
 app.get('/api/isLoggedIn', userController.isLoggedIn);
 app.get('/api/logOut', userController.logOut);
 app.post('/api/logIn', userController.logIn);
+app.post('/api/createUser', userController.createUser);
 
 
 /*********************** Instagram stuff *********************************/
