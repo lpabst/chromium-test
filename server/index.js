@@ -41,20 +41,22 @@ var instagramController = require("./istagramController.js");
 
 let oneDay = 1000*60*60*24;
 
-app.post('/api/launchIG', async function (req, res) {
-  req.session.followScriptBasicRunning = true;
-  console.log('hit', req.body, req.session)
-  let {email, password} = req.body;
-  // let profiles = req.body.profiles;
-  // db.getPeopleFollowedByScript()
-  // .then( response => {
-  //   peopleFollowedByScript = JSON.parse(response[0]);
-  //   instagram(email, password, username, profiles, peopleFollowedByScript);
-  // })
-  // instagramFollowScript(email, password, username, profiles, peopleFollowedByScript);
-  await instagramFollowScript(email, password);
-  await console.log('Insta Finished')
-})
+app.post('/api/launchIG', instagramController.instagramFollowScriptBasic);
+
+// app.post('/api/launchIG', async function (req, res) {
+//   req.session.followScriptBasicRunning = true;
+//   console.log('hit', req.body, req.session)
+//   let {email, password} = req.body;
+//   // let profiles = req.body.profiles;
+//   // db.getPeopleFollowedByScript()
+//   // .then( response => {
+//   //   peopleFollowedByScript = JSON.parse(response[0]);
+//   //   instagram(email, password, username, profiles, peopleFollowedByScript);
+//   // })
+//   // instagramFollowScript(email, password, username, profiles, peopleFollowedByScript);
+//   await instagramController.instagramFollowScriptBasic(email, password);
+//   await console.log('Insta Finished')
+// })
 
 app.post('/stopScript', (req, res) => {
   // push to DB
