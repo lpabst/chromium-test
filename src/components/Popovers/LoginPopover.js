@@ -28,14 +28,14 @@ class LoginPopover extends React.Component {
           <div id="login-popover_x-out" onClick={() => props.closeLoginPopover()}>x</div>
           <h2 id="login-popover_header">Log In to Your Account!</h2>
           <form>
-            <div style={{margin:'0 auto', display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
+            <div style={{display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
               {/* <label style={{margin:'5px'}} for="exampleInputEmail1">E-mail address:</label> */}
-              <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">E-mail</small>
+              <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">E-mail:</small>
               <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} value={this.state.emailInput} onChange={(e) => this.setState({emailInput:e.target.value})} type="email" className="form-control" aria-describedby="emailHelp" placeholder="Enter E-mail" />
             </div>
-            <div style={{margin:'0 auto', display:'block', width:'90%',  margin:' 15px auto'}} className="form-group">
+            <div style={{display:'block', width:'90%',  margin:' 15px auto'}} className="form-group">
               {/* <label style={{margin:'5px'}} for="exampleInputPassword1">Password:</label> */}
-              <small style={{fontSize:'12px', margin:'-5px auto 5px 5px', color:'#ef992f'}} id="emailHelp" className="form-text">Password:</small>
+              <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">Password:</small>
               <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} value={this.state.passwordInput} onChange={(e) => this.setState({passwordInput:e.target.value})} type="password" className="form-control" placeholder="Enter Password" />
             </div>
             <button 

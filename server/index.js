@@ -37,10 +37,12 @@ app.post('/api/createUser', userController.createUser);
 
 /*********************** Instagram stuff *********************************/
 
+var instagramController = require("./istagramController.js");
+
 let oneDay = 1000*60*60*24;
 
-app.post('/api/launchIG', (req, res) => {
-  req.session.followScriptRunning = true;
+app.post('/api/launchIG', async function (req, res) {
+  req.session.followScriptBasicRunning = true;
   console.log('hit', req.body, req.session)
   let {email, password} = req.body;
   // let profiles = req.body.profiles;
@@ -50,7 +52,8 @@ app.post('/api/launchIG', (req, res) => {
   //   instagram(email, password, username, profiles, peopleFollowedByScript);
   // })
   // instagramFollowScript(email, password, username, profiles, peopleFollowedByScript);
-  instagramFollowScript(email, password);
+  await instagramFollowScript(email, password);
+  await console.log('Insta Finished')
 })
 
 app.post('/stopScript', (req, res) => {
