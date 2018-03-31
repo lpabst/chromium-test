@@ -51,12 +51,12 @@ class SignUpPopover extends React.Component {
               <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">Choose a username.</small>
               <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} onChange={(e) => this.setState({usernameInput:e.target.value})} className="form-control" placeholder="Username" />
             </div>
-            <div style={{margin:'0 auto', display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
+            <div style={{display:'block', width:'90%', margin:' 15px auto'}} className="form-group">
               {/* <label style={{margin:'5px'}} for="exampleInputEmail1">E-mail address:</label> */}
               <small style={{fontSize:'12px', margin:'-5px auto 5px 5px'}} id="emailHelp" className="form-text text-muted">We'll never share your email.</small>
               <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} onChange={(e) => this.setState({emailInput:e.target.value})} type="email" className="form-control" aria-describedby="emailHelp" placeholder="Enter E-mail" />
             </div>
-            <div style={{margin:'0 auto', display:'block', width:'90%',  margin:' 15px auto'}} className="form-group">
+            <div style={{display:'block', width:'90%',  margin:' 15px auto'}} className="form-group">
               {/* <label style={{margin:'5px'}} for="exampleInputPassword1">Password:</label> */}
               <small style={{fontSize:'12px', margin:'-5px auto 5px 5px', color:'#e03333'}} id="emailHelp" className="form-text">It's best practice to not use your IG password here.</small>
               <input style={{padding:'6px', fontSize:'20px', width:'95%', margin:'0 auto', display:'block'}} onChange={(e) => this.setState({passwordInput:e.target.value})} type="password" className="form-control" placeholder="Choose Password" />
