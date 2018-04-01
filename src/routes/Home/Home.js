@@ -36,6 +36,7 @@ class Home extends Component {
           <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
           <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
           <button onClick={this.launchIG}> Launch IG </button>
+          <button onClick={this.launchIGFrontEnd}> Launch IG Front End</button>
         < LandingMessage />
         {/* < LandingMessageFooter /> */}
         < PageNameHeader>

@@ -14,25 +14,25 @@ class LandingMessage extends Component {
 
     }
 
-    // componentDidMount(){
-    //     this.incrementFollowers()
-    // }
+    componentDidMount(){
+        this.incrementFollowers()
+    }
 
-    // componentWillUnmount(){
-    //     clearInterval(this.increment);
-    // }
+    componentWillUnmount(){
+        clearInterval(this.increment);
+    }
 
-    // incrementFollowers = () => {
-    //     this.increment = setInterval(() => {
-    //         let followers = this.state.followers + 1;
-    //         if(followers > 999999){
-    //             followers = 999;
-    //         }
-    //         this.setState({
-    //             followers
-    //         }) 
-    //     }, 10 );
-    // }
+    incrementFollowers = () => {
+        this.increment = setInterval(() => {
+            let followers = this.state.followers + 1;
+            if(followers > 999999){
+                followers = 999;
+            }
+            this.setState({
+                followers
+            }) 
+        }, 10 );
+    }
 
     formatNumberForThousands = (x) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
