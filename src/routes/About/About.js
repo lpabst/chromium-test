@@ -19,7 +19,7 @@ class About extends Component {
     render() {
         return (
             <section className='routeWrapper'>
-            
+                about page
             </section>
         );
     }
