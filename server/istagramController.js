@@ -41,7 +41,17 @@ let userIdsRunningTheScript = {
     ],
     peopleToUnfollow: []
   },
-  id: 1
+  id: 1,
+  currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
+}
+
+function followedByScriptBefore(username) {
+  for(let i=0; i<userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript.length; i++){
+    if(username === userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript[i].n){
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = {
@@ -65,12 +75,13 @@ module.exports = {
         //  we will eventually send this array across in the body
         let profilesToTarget = ['https://www.instagram.com/psercia/', 'https://www.instagram.com/lpabst/'];
         
-        userIdsRunningTheScript.id = userId;
         userIdsRunningTheScript[userId] = {
           scriptRunning: true,
           profilesToTarget: profilesToTarget, 
           peopleFollowedByScript: [],
-          peopleToUnfollow: []
+          peopleToUnfollow: [],
+          id: userId,
+          currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
         }
         console.log('creating user in global object:');
         console.log(userIdsRunningTheScript);
@@ -90,7 +101,6 @@ module.exports = {
       const followersList = '._p4iax > li:nth-child(0) >';
       
       let {email, password} = req.body;
-      let peopleFollowed = 0;
       
       const browser = await puppeteer.launch({headless: false});
       const unfollowPage = await browser.newPage(); 
@@ -109,8 +119,9 @@ module.exports = {
       await page.waitForSelector(followersButton);
       await page.click(followersButton);
       await page.waitForSelector(followersListReady)
-  
+      
       let numberOfPeopleToFollow = 3;
+      let peopleFollowed = 0;
       
       for(let i=1; i<=numberOfPeopleToFollow; i++){
         if(userIdsRunningTheScript[userId].scriptRunning){
@@ -122,23 +133,31 @@ module.exports = {
             await page.evaluate(() => {document.getElementsByClassName('_gs38e')[0].scrollTop = document.getElementsByClassName('_gs38e')[0].scrollHeight });
           }
           await page.waitFor(600)
-
-          ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           
-          await page.click(followButton);
-    
-          // Gets the info for the user we just followed, and adds their info to the peopleFollowedByScript object up top
+          ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           let clickedUsername = await page.evaluate((i) => { 
             return document.getElementsByClassName('_2g7d5')[i].innerText; 
           }, i);
-          let clickedUserInfo = {
-            n:clickedUsername,
-            d:Math.round( new Date().getTime() / 1000 / 60 / 60 / 24 ),
-            u:0
+          let buttonText = await page.evaluate((i) => {
+            if(document.getElementsByClassName("_mtnzs")[i].children[0].children[0]){
+              console.log('button is there for ', i)
+              return document.getElementsByClassName("_mtnzs")[i].children[0].children[0].innerText;
+            } else {
+              return "Nah"
+            }
+          }, i);
+          if (buttonText === "Follow" && !followedByScriptBefore(clickedUsername)) {
+            console.log('bout to click ', i)
+            console.log('buttonText:', buttonText)
+            await page.click(followButton);
+            let clickedUserInfo = {
+              n:clickedUsername,
+              d:Math.round( new Date().getTime() / 1000 / 60 / 60 / 24 ),
+              u:0
+            }
+            userIdsRunningTheScript[userId].peopleFollowedByScript.push(clickedUserInfo);
+            console.log(userIdsRunningTheScript[userId].peopleFollowedByScript);
           }
-    
-          userIdsRunningTheScript[userId].peopleFollowedByScript.push(clickedUserInfo);
-          console.log(userIdsRunningTheScript[userId].peopleFollowedByScript);
     
           let rightNow = Math.round(new Date().getTime() / 1000 / 60 / 60 /24) // days since 1970
           userIdsRunningTheScript[userId].peopleToUnfollow = userIdsRunningTheScript[userId].peopleFollowedByScript.filter(i => !i.u && i.d <= rightNow - 4)
@@ -155,6 +174,7 @@ module.exports = {
           // people followed over 3 months ago should be spliced from the peopleFollowed array (65,000 people in 90 days running 24/7 =~ 66 megabytes of ram)
     
         } else {
+          userIdsRunningTheScript[userId].scriptRunning = false;
           browser.close();
           res.status(200).send("scriptRunning changed to false")
           //can do something here if scriptRunning is false?
@@ -166,8 +186,8 @@ module.exports = {
       console.log(userIdsRunningTheScript);
     }
     catch(error){
-      userIdsRunningTheScript[userId].scriptRunning = false;
-      browser.close();
+      // userIdsRunningTheScript[userId].scriptRunning = false;
+      // browser.close();
       res.status(200).send("an error stopped the script")
       console.log(error)
     }
