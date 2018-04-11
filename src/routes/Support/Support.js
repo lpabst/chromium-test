@@ -1,4 +1,6 @@
 import React, { Component } from'react';
+import MainHeader from './../../components/MainHeader/MainHeader.js';
+import PageNameHeader from './../../components/PageNameHeader/PageNameHeader.js';
 import './Support.css'
 
 import axios from 'axios';
@@ -47,6 +49,12 @@ class Support extends Component {
     render() {
         return (
             <section className={`routeWrapper`}>
+                < MainHeader />
+                < PageNameHeader>
+                    {() => (
+                        <h1>Support</h1>
+                    )}
+                </ PageNameHeader >
 
                 {/* Might be nice to add a full page background image of some kind here */}
                 

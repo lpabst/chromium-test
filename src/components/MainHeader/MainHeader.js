@@ -126,13 +126,13 @@ class MainHeader extends Component {
                 <Link to="/discover" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Discover</Link>
               </li>
               <li className={`nav-item ${this.state.navActive[2]}`}>
-                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">FAQ</a>
+                <Link to="/faq" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">FAQ</Link>
               </li>
               <li className={`nav-item ${this.state.navActive[3]}`}>
-                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Support</a>
+                <Link to="/support" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">Support</Link>
               </li>
               <li className={`nav-item ${this.state.navActive[4]}`}>
-                <a style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">About Us</a>
+                <Link to="about" style={{fontSize:"18px", fontWeight:"bold"}} className="nav-link moveFast">About Us</Link>
               </li>
               { this.props.loggedIn &&
                 <li className={`nav-item ${this.state.navActive[5]}`}>

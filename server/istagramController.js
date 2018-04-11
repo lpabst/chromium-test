@@ -138,26 +138,5 @@ module.exports = {
 
     }
     
-    
-    await page.waitFor(5000);
-    
-    // await page.click(profileLink);
-    
-    // await page.waitForSelector(followingBtn);
-    // await page.click(followingBtn);
-    
-    // await page.waitForSelector(followingList);
-    
-    let r = Math.floor(Math.random()*1000000);
-    // await page.screenshot({ path: `screenshots/instagram${r}.png` });
-    await page.screenshot({ path: `screenshots/instagram001.png` });
-    
-    // await followUnfollow(page, profiles, peopleFollowedByScript);
-    
-    // the follow unfollow script runs until the subscription runs out or the user stops the script.
-    // When that happens, close the puppeteer browser window
-    browser.close();
-    
-    
   }
 }
