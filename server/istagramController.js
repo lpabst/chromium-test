@@ -3,9 +3,31 @@ var config = require('./config.js');
 
 const puppeteer = require('puppeteer');
 
+let userIdsRunningTheScript = {
+  0: {
+    scriptRunning: true,
+    profilesToTarget: ['https://www.instagram.com/psercia/', 'https://www.instagram.com/lpabst/'],
+    peopleFollowedByScript: [
+      {
+        n:'psercia', //name
+        d:'04/10/2018 22:23:18', //date the user was followed
+        u:false //unfollowed
+      }, 
+      {}
+    ],
+    peopleToUnfollow: []
+  }
+}
+
 module.exports = {
 
   instagramFollowScriptBasic: async function(req, res){
+
+    let userId;
+    try{userId = req.session.user.id;}catch(e){};
+    if (!userId || userIdsRunningTheScript[userId].scriptRunning){
+      return;
+    }
     
     const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
     const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
@@ -61,12 +83,13 @@ module.exports = {
       // let list = page.evaluate( document.getElementsByClassName('_gs38e')[0] )
       // const list = await page.evaluateHandle(() => document.getElementsByClassName('_gs38e')[0]);
       await page.waitFor(1000)
-      if(i<=18){ 
+      if(i<=25){ 
         await page.evaluate(() => {document.getElementsByClassName('_gs38e')[0].scrollTop = document.getElementsByClassName('_gs38e')[0].scrollHeight });
       }
       await page.waitFor(6000)
       
       await page.click(indexToFollow);
+
     }
     
     
