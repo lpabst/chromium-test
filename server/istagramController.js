@@ -41,7 +41,21 @@ let userIdsRunningTheScript = {
     ],
     peopleToUnfollow: []
   },
-  id: 1
+  id: 1,
+  currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
+  //need to add username
+}
+
+function followedByScriptBefore(username) {
+  for(let i=0; i<userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript.length; i++){
+    if(username === userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript[i].n){
+      return true;
+    }
+    if(userIdsRunningTheScript[userIdsRunningTheScript.id].username && username === userIdsRunningTheScript[userIdsRunningTheScript.id].username){ //this line will also return true if the user is in the list of the target's followers. This is needed because you can't follow yourself, so there is no follow button, which will break the code.
+      return true;
+    }
+  }
+  return false;
 }
 
 module.exports = {
@@ -65,12 +79,14 @@ module.exports = {
         //  we will eventually send this array across in the body
         let profilesToTarget = ['https://www.instagram.com/psercia/', 'https://www.instagram.com/lpabst/'];
         
-        userIdsRunningTheScript.id = userId;
         userIdsRunningTheScript[userId] = {
           scriptRunning: true,
           profilesToTarget: profilesToTarget, 
           peopleFollowedByScript: [],
-          peopleToUnfollow: []
+          peopleToUnfollow: [],
+          id: userId,
+          currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
+          // need to add username
         }
         console.log('creating user in global object:');
         console.log(userIdsRunningTheScript);
@@ -90,7 +106,6 @@ module.exports = {
       const followersList = '._p4iax > li:nth-child(0) >';
       
       let {email, password} = req.body;
-      let peopleFollowed = 0;
       
       const browser = await puppeteer.launch({headless: false});
       const unfollowPage = await browser.newPage(); 
@@ -109,36 +124,47 @@ module.exports = {
       await page.waitForSelector(followersButton);
       await page.click(followersButton);
       await page.waitForSelector(followersListReady)
-  
-      let numberOfPeopleToFollow = 3;
+      
+      let numberOfPeopleToFollow = 10;
+      let peopleFollowed = 0;
       
       for(let i=1; i<=numberOfPeopleToFollow; i++){
         if(userIdsRunningTheScript[userId].scriptRunning){
 
-          const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(${i}) > div > div._mtnzs > span > button`
-    
+          
           await page.waitFor(5000)
           if(i<=25){ // This will scroll the page until 270 peeps are on the DOM.
             await page.evaluate(() => {document.getElementsByClassName('_gs38e')[0].scrollTop = document.getElementsByClassName('_gs38e')[0].scrollHeight });
           }
           await page.waitFor(600)
-
-          ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           
-          await page.click(followButton);
-    
-          // Gets the info for the user we just followed, and adds their info to the peopleFollowedByScript object up top
+          ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           let clickedUsername = await page.evaluate((i) => { 
-            return document.getElementsByClassName('_2g7d5')[i].innerText; 
+            return document.getElementsByClassName('_2g7d5')[i].innerHTML; 
           }, i);
-          let clickedUserInfo = {
-            n:clickedUsername,
-            d:Math.round( new Date().getTime() / 1000 / 60 / 60 / 24 ),
-            u:0
+          let buttonText = await page.evaluate((i) => {
+            if(document.getElementsByClassName("_mtnzs")[i].children[0].children[0]){
+              console.log('button is there for ', i)
+              return document.getElementsByClassName("_mtnzs")[i].children[0].children[0].innerHTML;
+            } else {
+              return "Nah"
+            }
+          }, i);
+          console.log('buttonText:', i, buttonText)
+          if (buttonText === "Follow" && !followedByScriptBefore(clickedUsername)) {
+            console.log('bout to click ', i)
+            // const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(${i}) > div > div._mtnzs > span > button`
+            await page.evaluate((i) => {
+              document.getElementsByClassName("_mtnzs")[i].children[0].children[0].click();
+            }, i)
+            let clickedUserInfo = {
+              n:clickedUsername,
+              d:Math.round( new Date().getTime() / 1000 / 60 / 60 / 24 ),
+              u:0
+            }
+            userIdsRunningTheScript[userId].peopleFollowedByScript.push(clickedUserInfo);
+            console.log(userIdsRunningTheScript[userId].peopleFollowedByScript);
           }
-    
-          userIdsRunningTheScript[userId].peopleFollowedByScript.push(clickedUserInfo);
-          console.log(userIdsRunningTheScript[userId].peopleFollowedByScript);
     
           let rightNow = Math.round(new Date().getTime() / 1000 / 60 / 60 /24) // days since 1970
           userIdsRunningTheScript[userId].peopleToUnfollow = userIdsRunningTheScript[userId].peopleFollowedByScript.filter(i => !i.u && i.d <= rightNow - 4)
@@ -155,6 +181,7 @@ module.exports = {
           // people followed over 3 months ago should be spliced from the peopleFollowed array (65,000 people in 90 days running 24/7 =~ 66 megabytes of ram)
     
         } else {
+          userIdsRunningTheScript[userId].scriptRunning = false;
           browser.close();
           res.status(200).send("scriptRunning changed to false")
           //can do something here if scriptRunning is false?
@@ -166,8 +193,8 @@ module.exports = {
       console.log(userIdsRunningTheScript);
     }
     catch(error){
-      userIdsRunningTheScript[userId].scriptRunning = false;
-      browser.close();
+      // userIdsRunningTheScript[userId].scriptRunning = false;
+      // browser.close();
       res.status(200).send("an error stopped the script")
       console.log(error)
     }
