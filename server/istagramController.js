@@ -43,11 +43,15 @@ let userIdsRunningTheScript = {
   },
   id: 1,
   currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
+  //need to add username
 }
 
 function followedByScriptBefore(username) {
   for(let i=0; i<userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript.length; i++){
     if(username === userIdsRunningTheScript[userIdsRunningTheScript.id].peopleFollowedByScript[i].n){
+      return true;
+    }
+    if(userIdsRunningTheScript[userIdsRunningTheScript.id].username && username === userIdsRunningTheScript[userIdsRunningTheScript.id].username){ //this line will also return true if the user is in the list of the target's followers. This is needed because you can't follow yourself, so there is no follow button, which will break the code.
       return true;
     }
   }
@@ -82,6 +86,7 @@ module.exports = {
           peopleToUnfollow: [],
           id: userId,
           currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
+          // need to add username
         }
         console.log('creating user in global object:');
         console.log(userIdsRunningTheScript);
@@ -120,14 +125,13 @@ module.exports = {
       await page.click(followersButton);
       await page.waitForSelector(followersListReady)
       
-      let numberOfPeopleToFollow = 3;
+      let numberOfPeopleToFollow = 10;
       let peopleFollowed = 0;
       
       for(let i=1; i<=numberOfPeopleToFollow; i++){
         if(userIdsRunningTheScript[userId].scriptRunning){
 
-          const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(${i}) > div > div._mtnzs > span > button`
-    
+          
           await page.waitFor(5000)
           if(i<=25){ // This will scroll the page until 270 peeps are on the DOM.
             await page.evaluate(() => {document.getElementsByClassName('_gs38e')[0].scrollTop = document.getElementsByClassName('_gs38e')[0].scrollHeight });
@@ -136,20 +140,23 @@ module.exports = {
           
           ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           let clickedUsername = await page.evaluate((i) => { 
-            return document.getElementsByClassName('_2g7d5')[i].innerText; 
+            return document.getElementsByClassName('_2g7d5')[i].innerHTML; 
           }, i);
           let buttonText = await page.evaluate((i) => {
             if(document.getElementsByClassName("_mtnzs")[i].children[0].children[0]){
               console.log('button is there for ', i)
-              return document.getElementsByClassName("_mtnzs")[i].children[0].children[0].innerText;
+              return document.getElementsByClassName("_mtnzs")[i].children[0].children[0].innerHTML;
             } else {
               return "Nah"
             }
           }, i);
+          console.log('buttonText:', i, buttonText)
           if (buttonText === "Follow" && !followedByScriptBefore(clickedUsername)) {
             console.log('bout to click ', i)
-            console.log('buttonText:', buttonText)
-            await page.click(followButton);
+            // const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(${i}) > div > div._mtnzs > span > button`
+            await page.evaluate((i) => {
+              document.getElementsByClassName("_mtnzs")[i].children[0].children[0].click();
+            }, i)
             let clickedUserInfo = {
               n:clickedUsername,
               d:Math.round( new Date().getTime() / 1000 / 60 / 60 / 24 ),
