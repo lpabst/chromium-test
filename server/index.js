@@ -37,10 +37,7 @@ app.post('/api/createUser', userController.createUser);
 /************************* Support Endpoint *************************/ 
 const supportController = require('./supportController.js'); // maybe we can use userCtrl for this too
 
-app.post('/api/supportTicket', (req, res) => {
-  // send email to ourselves here with support ticket details
-  return res.status(404).send('ok');
-})
+app.post('/api/supportTicket', supportController.supportTicket);
 
 
 /*********************** Instagram stuff *********************************/
