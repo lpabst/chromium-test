@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-
 import './PageNameHeader.css';
 
 class PageNameHeader extends Component {
-
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     return (
       <div className='page-name-header_wrapper'>

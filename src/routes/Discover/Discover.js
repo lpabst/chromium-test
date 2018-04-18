@@ -3,7 +3,7 @@ import './Discover.css';
 
 import MainHeader from './../../components/MainHeader/MainHeader.js';
 import LandingMessage from './../../components/LandingMessage/LandingMessage.js';
-import LandingMessageFooter from './../../components/LandingMessage/LandingMessageFooter.js';
+// import LandingMessageFooter from './../../components/LandingMessage/LandingMessageFooter.js';
 import PageNameHeader from '../../components/PageNameHeader/PageNameHeader.js';
 import PictureWithMessage from '../../components/PictureWithMessage/PictureWithMessage.js';
 import SocialLinks from '../../components/SocialLinks/SocialLinks.js';

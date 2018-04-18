@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -114,7 +113,7 @@ class MainHeader extends Component {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand main-header_logo" href="#"></a>
+          <Link className="navbar-brand main-header_logo" to="/"></Link>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
