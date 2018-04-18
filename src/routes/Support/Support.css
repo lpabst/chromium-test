@@ -48,19 +48,19 @@
 .successModal{
     height: 200px;
     top: 5px;
-    background: #4286f4;
+    background: #ce3960;
 }
 
 .errorModal{
     height: 200px;
     top: 5px;
-    background: #4286f4;
+    background: #ce3960;
 }
 
 .normalModal{
     height: 400px;
     top: 5px;
-    background: #4286f4;
+    background: #ce3960;
 }
 
 @media(min-width: 815px){
