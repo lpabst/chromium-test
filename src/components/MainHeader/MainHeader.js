@@ -52,13 +52,12 @@ class MainHeader extends Component {
   };
 
   lookAtURLForNavStyle = () => {
-    if(window.location.href.split('#/')[1]){
-      if(window.location.href.split('#/')[1].includes("discover")) {this.updateActiveTabStyle(1)} return;
-      if(window.location.href.split('#/')[1].includes("faq")) {this.updateActiveTabStyle(2)} return;
-      if(window.location.href.split('#/')[1].includes("support")) {this.updateActiveTabStyle(3)} return;
-      if(window.location.href.split('#/')[1].includes("about")) {this.updateActiveTabStyle(4)} return;
-      if(window.location.href.split('#/')[1].includes("dashboard")) {this.updateActiveTabStyle(5)} return;
-    }
+    if(window.location.href.match(/discover/)) {return this.updateActiveTabStyle(1)}
+    else if(window.location.href.match(/faq/)) {return this.updateActiveTabStyle(2)}
+    else if(window.location.href.match(/support/)) {return this.updateActiveTabStyle(3)}
+    else if(window.location.href.match(/about/)) {return this.updateActiveTabStyle(4)}
+    else if(window.location.href.match(/dashboard/)) {return this.updateActiveTabStyle(5)}
+    else {return this.updateActiveTabStyle(0)}
   }
 
   openLoginPopover = () => {
