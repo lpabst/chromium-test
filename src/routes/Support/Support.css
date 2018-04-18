@@ -1,4 +1,11 @@
 
+.support_fullscreen_background{
+    min-height: 450px;
+    background: url('https://st.depositphotos.com/2931363/4150/i/950/depositphotos_41506827-stock-photo-man-telling-something-for-group.jpg')center repeat;
+    background-size: cover;
+    position: relative;
+}
+
 .supportModal{
     width: 300px;
     position: absolute;
@@ -40,18 +47,38 @@
 
 .successModal{
     height: 200px;
-    top: calc(50% - 100px);
-    background: #ccc;
+    top: 5px;
+    background: #ce3960;
 }
 
 .errorModal{
     height: 200px;
-    top: calc(50% - 100px);
-    background: #ccc;
+    top: 5px;
+    background: #ce3960;
 }
 
 .normalModal{
     height: 400px;
-    top: calc(50% - 200px);
-    background: #ccc;
+    top: 5px;
+    background: #ce3960;
+}
+
+@media(min-width: 815px){
+    .successModal{
+        top: calc(50% - 100px);
+    }
+    
+    .errorModal{
+        top: calc(50% - 100px);
+    }
+    
+    .normalModal{
+        top: calc(50% - 200px);
+    }
+}
+
+@media(min-height: 600px){
+    .support_fullscreen_background{
+        min-height: calc(100vh - 135px);
+    }
 }

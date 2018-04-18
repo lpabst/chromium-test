@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import {connect} from 'react-redux';
@@ -52,13 +51,12 @@ class MainHeader extends Component {
   };
 
   lookAtURLForNavStyle = () => {
-    if(window.location.href.split('#/')[1]){
-      if(window.location.href.split('#/')[1].includes("discover")) {this.updateActiveTabStyle(1)} return;
-      if(window.location.href.split('#/')[1].includes("faq")) {this.updateActiveTabStyle(2)} return;
-      if(window.location.href.split('#/')[1].includes("support")) {this.updateActiveTabStyle(3)} return;
-      if(window.location.href.split('#/')[1].includes("about")) {this.updateActiveTabStyle(4)} return;
-      if(window.location.href.split('#/')[1].includes("dashboard")) {this.updateActiveTabStyle(5)} return;
-    }
+    if(window.location.href.match(/discover/)) {return this.updateActiveTabStyle(1)}
+    else if(window.location.href.match(/faq/)) {return this.updateActiveTabStyle(2)}
+    else if(window.location.href.match(/support/)) {return this.updateActiveTabStyle(3)}
+    else if(window.location.href.match(/about/)) {return this.updateActiveTabStyle(4)}
+    else if(window.location.href.match(/dashboard/)) {return this.updateActiveTabStyle(5)}
+    else {return this.updateActiveTabStyle(0)}
   }
 
   openLoginPopover = () => {
@@ -115,7 +113,7 @@ class MainHeader extends Component {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand main-header_logo" href="#"></a>
+          <Link className="navbar-brand main-header_logo" to="/"></Link>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav nav nav-tabs mr-auto mt-2 mt-lg-0">
