@@ -1,7 +1,7 @@
 import React, { Component } from'react';
 import MainHeader from './../../components/MainHeader/MainHeader.js';
 import PageNameHeader from './../../components/PageNameHeader/PageNameHeader.js';
-import './Support.css'
+import './Support.css';
 
 import axios from 'axios';
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './FaQ.css'
+import MainHeader from './../../components/MainHeader/MainHeader.js';
+import PageNameHeader from './../../components/PageNameHeader/PageNameHeader.js';
+import './FaQ.css';
 
 
 class FaQ extends Component {
@@ -19,7 +21,14 @@ class FaQ extends Component {
     render() {
         return (
             <section className='routeWrapper'>
-                FaQ Route
+                    
+                < MainHeader />
+                < PageNameHeader>
+                    {() => (
+                        <h1>FAQ</h1>
+                    )}
+                </ PageNameHeader >
+            
             </section>
         );
     }
