@@ -13,12 +13,12 @@ import Dashboard from './routes/Dashboard/Dashboard.js';
 export default (
     <Switch>
         
-        <Route component={ Home } path='/' exact />
+        <Route component={ Home } path='/home' exact />
         <Route component={ Discover } path='/discover' exact />
         <Route component={ FaQ } path='/faq' exact />
         <Route component={ Support } path='/support' exact />
         <Route component={ About } path='/about' exact />
-        <Route component={ Dashboard } path='/dashboard' exact />
+        <Route component={ Dashboard } path='/' exact />
 
     </Switch>
 )

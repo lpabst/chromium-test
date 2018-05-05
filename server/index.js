@@ -42,11 +42,11 @@ app.post('/api/supportTicket', supportController.supportTicket);
 
 /*********************** Instagram stuff *********************************/
 
-var instagramController = require("./istagramController.js");
+var amazonController = require("./amazonController.js");
 
 let oneDay = 1000*60*60*24;
 
-app.post('/api/launchIG', instagramController.instagramFollowScriptBasic);
+app.post('/api/launchAZ', amazonController.findProducts);
 
 // app.post('/api/launchIG', async function (req, res) {
 //   req.session.followScriptBasicRunning = true;
