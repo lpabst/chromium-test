@@ -16,7 +16,7 @@ class Dashboard extends Component {
         }
       
     launchAZ = () => {
-        axios.post('/api/launchAZ/', {email:this.state.categoryInput, password:this.state.searchInput})
+        axios.post('/api/launchAZ/', {category:this.state.categoryInput, search:this.state.searchInput})
         .then(res => console.log(res))
     }
 

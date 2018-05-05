@@ -6,10 +6,20 @@ const puppeteer = require('puppeteer');
 module.exports = {
 
   findProducts: async function(req, res){
+    const category = req.body.category
+    let searchTerm = req.body.search.split(' ')
+    for(let i=0; i<searchTerm.length; i++){
+      if(i === searchTerm.length -1){
+        searchTerm = searchTerm + searchTerm[i]
+      } else {
+        searchTerm = searchTerm + searchTerm[i] + "+"
+      }
+    }
+    console.log(searchTerm)
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage(); 
-    
-    await page.goto('https://www.amazon.com/');
+    // https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Delectronics&field-keywords=
+    await page.goto(`https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3D${req.body.category}&field-keywords${searchTerm}`);
 
   },
 
