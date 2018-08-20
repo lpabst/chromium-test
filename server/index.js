@@ -139,6 +139,7 @@ function setFutureDateUserHasPaidThrough(){
 
 async function instagramFollowScript(email, password, username, profiles, peopleFollowedByScript) {
 
+  // const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
   const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
   const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
   const passwordInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(2) > div > div._ev9xl input';

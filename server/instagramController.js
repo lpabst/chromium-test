@@ -94,15 +94,16 @@ module.exports = {
       
       userIdsRunningTheScript[userId].scriptRunning = true; //Script is allowed to start if this line gets run.
 
-      const logInOption = '#react-root > section > main > article > div._kbq82 > div:nth-child(2) > p > a';
-      const emailInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(1) > div > div._ev9xl input';
-      const passwordInput = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > div:nth-child(2) > div > div._ev9xl input';
-      const logInBtn = '#react-root > section > main > article > div._kbq82 > div:nth-child(1) > div > form > span > button';
+      const logInOption = '#react-root > section > main > article > div.rgFsT > div:nth-child(2) > p > a';
+      // const emailInput = '#react-root > section > main > article > div.rgFsT > div:nth-child(1) > div > form > div:nth-child(1) > div > div.f0n8F input';
+      const emailInput = '#react-root > section > main > div > article > div > div:nth-child(1) > div > form > div:nth-child(1) > div > div.f0n8F input';
+      const passwordInput = '#react-root > section > main > div > article > div > div:nth-child(1) > div > form > div:nth-child(2) > div > div.f0n8F input';
+      const logInBtn = '#react-root > section > main > div > article > div > div:nth-child(1) > div > form > span > button';
       const profileLink = 'a[href="/'+config.username+'/"]';
       const followingBtn = '#react-root > section > main > article > header > section > ul > li:nth-child(3) > a';
       const followingList = '._gs38e ul div';
-      const followersButton = '#react-root > section > main > article > header > section > ul > li:nth-child(2) > a';
-      const followersListReady = 'body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(1) > div > div._mtnzs > span > button';
+      const followersButton = '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a';
+      const followersListReady = 'body > div:nth-child(15) > div > div.zZYga > div > div.j6cq2 > ul > div > li:nth-child(1) > div > div.BW116 > span > button';
       const followersList = '._p4iax > li:nth-child(0) >';
       
       let {email, password, headless} = req.body;
@@ -112,9 +113,9 @@ module.exports = {
       const page = await browser.newPage(); 
       
       await page.waitFor(5000);
-      await page.goto('https://www.instagram.com/');
-      await page.waitForSelector(logInOption);
-      await page.click(logInOption);
+      await page.goto('https://www.instagram.com/accounts/login/');
+      // await page.waitForSelector(logInOption);
+      // await page.click(logInOption);
       await page.waitForSelector(emailInput);
       await page.type(emailInput, email);
       await page.type(passwordInput, password);
@@ -124,6 +125,10 @@ module.exports = {
       await page.waitForSelector(followersButton);
       await page.click(followersButton);
       await page.waitForSelector(followersListReady)
+      // console.log(1)
+      // console.log(2)
+      // console.log(3)
+      // console.log(4)
       
       let numberOfPeopleToFollow = 10;
       let peopleFollowed = 0;

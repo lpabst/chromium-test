@@ -9,8 +9,8 @@ class LoginPopover extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      emailInput:'claytonpabst@gmail.com',
-      passwordInput:'Password1',
+      emailInput:'jess',
+      passwordInput:'jess',
     }
 
   }
