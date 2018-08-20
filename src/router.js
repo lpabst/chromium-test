@@ -18,7 +18,8 @@ export default (
         <Route component={ FaQ } path='/faq' exact />
         <Route component={ Support } path='/support' exact />
         <Route component={ About } path='/about' exact />
-        <Route component={ Dashboard } path='/' exact />
+        <Route component={ Home } path='/' exact />
+        {/* <Route component={ Dashboard } path='/' exact /> */}
 
     </Switch>
 )

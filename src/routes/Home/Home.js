@@ -21,7 +21,12 @@ class Home extends Component {
   }
 
   launchIG = () => {
-    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput})
+    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput, headless: true})
+    .then(res => console.log(res))
+  }
+  
+  launchIGFrontEnd = () => {
+    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput, headless: false})
     .then(res => console.log(res))
   }
   

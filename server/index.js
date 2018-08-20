@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const bodyParser = require('body-parser');
 var massive = require('massive');
@@ -42,11 +40,11 @@ app.post('/api/supportTicket', supportController.supportTicket);
 
 /*********************** Instagram stuff *********************************/
 
-var amazonController = require("./amazonController.js");
+var instagramController = require("./instagramController.js");
 
 let oneDay = 1000*60*60*24;
 
-app.post('/api/launchAZ', amazonController.findProducts);
+app.post('/api/launchIG', instagramController.instagramFollowScriptBasic);
 
 // app.post('/api/launchIG', async function (req, res) {
 //   req.session.followScriptBasicRunning = true;
