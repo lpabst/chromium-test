@@ -63,11 +63,11 @@ module.exports = {
   instagramFollowScriptBasic: async function(req, res){
 
     try{
-      let userId = req.session.user.id;
-      
       if (!req.session || !req.session.user || !req.session.user.id){
         return console.log('not logged in');
       }
+
+      let userId = req.session.user.id;
       
       // check to make sure script isn't already running for this user
       if (userIdsRunningTheScript[userId] && userIdsRunningTheScript[userId].scriptRunning){

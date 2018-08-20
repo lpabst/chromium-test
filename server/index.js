@@ -21,7 +21,10 @@ app.use(session({
 massive(config.connection)
 .then( db => {
   app.set('db', db);
-}).catch(err=>{});
+}).catch(err=>{
+  console.log('error connecting to db')
+  console.log(err);
+});
 
 app.use(express.static(__dirname + './../build'))
 
