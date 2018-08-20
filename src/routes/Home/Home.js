@@ -14,19 +14,22 @@ class Home extends Component {
     super(props)
 
     this.state = {
-      emailInput:'',
-      passwordInput:'',
+      email:'',
+      password:'',
+      startingProfile:'',
     }
 
   }
 
   launchIG = () => {
-    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput, headless: true})
+    let { email, password, startingProfile } = this.state;
+    axios.post('/api/launchIG/', {email, password, startingProfile, headless: true})
     .then(res => console.log(res))
   }
   
   launchIGFrontEnd = () => {
-    axios.post('/api/launchIG/', {email:this.state.emailInput, password:this.state.passwordInput, headless: false})
+    let { email, password, startingProfile } = this.state;
+    axios.post('/api/launchIG/', {email, password, startingProfile, headless: false})
     .then(res => console.log(res))
   }
   
@@ -39,8 +42,9 @@ class Home extends Component {
             <h1>Home</h1>
           )}
         </ PageNameHeader >
-          <input onChange={(e) => this.setState({emailInput:e.target.value})}/>
-          <input onChange={(e) => this.setState({passwordInput:e.target.value})}/>
+          <input placeholder='email' onChange={(e) => this.setState({email:e.target.value})}/>
+          <input placeholder='password' onChange={(e) => this.setState({password:e.target.value})}/>
+          <input placeholder='Starting Profile' onChange={(e) => this.setState({startingProfile:e.target.value})}/>
           <button onClick={this.launchIG}> Launch IG </button>
           <button onClick={this.launchIGFrontEnd}> Launch IG Front End</button>
         < LandingMessage />

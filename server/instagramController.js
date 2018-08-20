@@ -61,13 +61,14 @@ function followedByScriptBefore(username) {
 module.exports = {
 
   instagramFollowScriptBasic: async function(req, res){
-
+    
     try{
       if (!req.session || !req.session.user || !req.session.user.id){
         return console.log('not logged in');
       }
 
       let userId = req.session.user.id;
+      let {email, password, startingProfile, headless} = req.body;
       
       // check to make sure script isn't already running for this user
       if (userIdsRunningTheScript[userId] && userIdsRunningTheScript[userId].scriptRunning){
@@ -77,8 +78,9 @@ module.exports = {
       // if userId doesn't exist yet in the object up top, create it
       if (!userIdsRunningTheScript[userId]){
         //  we will eventually send this array across in the body
-        let profilesToTarget = ['https://www.instagram.com/psercia/', 'https://www.instagram.com/lpabst/'];
-        
+        if (!startingProfile.match(/http/) && !startingProfile.match(/www/)) startingProfile = `https://www.instagram.com/${startingProfile}/`;
+        let profilesToTarget = startingProfile ? [startingProfile] : ['https://www.instagram.com/psercia/'];
+
         userIdsRunningTheScript[userId] = {
           scriptRunning: true,
           profilesToTarget: profilesToTarget, 
@@ -105,8 +107,7 @@ module.exports = {
       const followersButton = '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a';
       const followersListReady = 'div.j6cq2 > ul > div > li:nth-child(1) > div > div.BW116';
       const followersList = '._p4iax > li:nth-child(0) >';
-      
-      let {email, password, headless} = req.body;
+      const startingFollowUrl = userIdsRunningTheScript[userId].profilesToTarget[0] || 'https://www.instagram.com/psercia/';
       
       const browser = await puppeteer.launch({headless: headless});
       const unfollowPage = await browser.newPage(); 
@@ -121,7 +122,7 @@ module.exports = {
       await page.type(passwordInput, password);
       await page.click(logInBtn);
       await page.waitFor(5000);
-      await page.goto(userIdsRunningTheScript[userId].profilesToTarget[0]);
+      await page.goto(startingFollowUrl);
       await page.waitForSelector(followersButton);
       await page.click(followersButton);
       await page.waitForSelector(followersListReady);
