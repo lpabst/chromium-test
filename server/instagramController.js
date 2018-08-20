@@ -88,8 +88,8 @@ module.exports = {
           currentDay: Math.round(new Date().getTime() / 1000 / 60 / 60 /24)
           // need to add username
         }
-        console.log('creating user in global object:');
-        console.log(userIdsRunningTheScript);
+        // console.log('creating user in global object:');
+        // console.log(userIdsRunningTheScript);
       }
       
       userIdsRunningTheScript[userId].scriptRunning = true; //Script is allowed to start if this line gets run.
@@ -101,9 +101,9 @@ module.exports = {
       const logInBtn = '#react-root > section > main > div > article > div > div:nth-child(1) > div > form > span > button';
       const profileLink = 'a[href="/'+config.username+'/"]';
       const followingBtn = '#react-root > section > main > article > header > section > ul > li:nth-child(3) > a';
-      const followingList = '._gs38e ul div';
+      const followingList = '.j6cq2 ul div';
       const followersButton = '#react-root > section > main > div > header > section > ul > li:nth-child(2) > a';
-      const followersListReady = 'body > div:nth-child(15) > div > div.zZYga > div > div.j6cq2 > ul > div > li:nth-child(1) > div > div.BW116 > span > button';
+      const followersListReady = 'div.j6cq2 > ul > div > li:nth-child(1) > div > div.BW116';
       const followersList = '._p4iax > li:nth-child(0) >';
       
       let {email, password, headless} = req.body;
@@ -124,43 +124,41 @@ module.exports = {
       await page.goto(userIdsRunningTheScript[userId].profilesToTarget[0]);
       await page.waitForSelector(followersButton);
       await page.click(followersButton);
-      await page.waitForSelector(followersListReady)
-      // console.log(1)
-      // console.log(2)
-      // console.log(3)
-      // console.log(4)
+      await page.waitForSelector(followersListReady);
       
       let numberOfPeopleToFollow = 10;
       let peopleFollowed = 0;
       
       for(let i=1; i<=numberOfPeopleToFollow; i++){
+        console.log('j ' + userIdsRunningTheScript[userId].scriptRunning)
         if(userIdsRunningTheScript[userId].scriptRunning){
 
-          
           await page.waitFor(5000)
           if(i<=25){ // This will scroll the page until 270 peeps are on the DOM.
-            await page.evaluate(() => {document.getElementsByClassName('_gs38e')[0].scrollTop = document.getElementsByClassName('_gs38e')[0].scrollHeight });
+            await page.evaluate(() => {document.getElementsByClassName('j6cq2')[0].scrollTop = document.getElementsByClassName('j6cq2')[0].scrollHeight });
           }
           await page.waitFor(600)
           
           ///////////////////////////// Should the follow button get pressed ? ///////////////////////
           let clickedUsername = await page.evaluate((i) => { 
-            return document.getElementsByClassName('_2g7d5')[i].innerHTML; 
+            return document.getElementsByClassName('FPmhX')[i].innerHTML; 
           }, i);
+
           let buttonText = await page.evaluate((i) => {
-            if(document.getElementsByClassName("_mtnzs")[i].children[0].children[0]){
-              console.log('button is there for ', i)
-              return document.getElementsByClassName("_mtnzs")[i].children[0].children[0].innerHTML;
+            if(document.getElementsByClassName("oF4XW")[i]){
+              return document.getElementsByClassName("oF4XW")[i].innerHTML;
             } else {
               return "Nah"
             }
           }, i);
-          console.log('buttonText:', i, buttonText)
+
+          // console.log('buttonText:', i, buttonText)
+
           if (buttonText === "Follow" && !followedByScriptBefore(clickedUsername)) {
             console.log('bout to click ', i)
-            // const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div._gs38e > ul > div > li:nth-child(${i}) > div > div._mtnzs > span > button`
+            // const followButton = `body > div:nth-child(14) > div > div._o0j5z > div > div.j6cq2 > ul > div > li:nth-child(${i}) > div > div.oF4XW > span > button`
             await page.evaluate((i) => {
-              document.getElementsByClassName("_mtnzs")[i].children[0].children[0].click();
+              document.getElementsByClassName("oF4XW")[i].click();
             }, i)
             let clickedUserInfo = {
               n:clickedUsername,
@@ -173,7 +171,7 @@ module.exports = {
     
           let rightNow = Math.round(new Date().getTime() / 1000 / 60 / 60 /24) // days since 1970
           userIdsRunningTheScript[userId].peopleToUnfollow = userIdsRunningTheScript[userId].peopleFollowedByScript.filter(i => !i.u && i.d <= rightNow - 4)
-          console.log(userIdsRunningTheScript[userId].peopleToUnfollow);
+          // console.log(userIdsRunningTheScript[userId].peopleToUnfollow);
     
           if(userIdsRunningTheScript[userId].peopleToUnfollow.length){
             await unfollowPage.goto(`https://www.instagram.com/${userIdsRunningTheScript[userId].peopleToUnfollow[0].n}/`)
@@ -195,7 +193,7 @@ module.exports = {
       userIdsRunningTheScript[userId].scriptRunning = false;
       browser.close();
       res.status(200).send("for loop ended")
-      console.log(userIdsRunningTheScript);
+      // console.log(userIdsRunningTheScript);
     }
     catch(error){
       // userIdsRunningTheScript[userId].scriptRunning = false;
